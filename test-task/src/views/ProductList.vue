@@ -9,11 +9,7 @@ const store = useProductStore();
 
 import productsData from "@/info/items.json";
 
-store.products = store.showedProducts = productsData;
-
-const products = computed(() => {
-  return store.showedProducts;
-})
+store.products = productsData;
 </script>
 
 <template>
@@ -21,7 +17,7 @@ const products = computed(() => {
     <SortPanel />
     <div class="product-list-wrapper">
       <ProductCard
-        v-for="product in products"
+        v-for="product in store.showedProducts"
         :item="product"
         :key="product.id"
       />

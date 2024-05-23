@@ -12,7 +12,6 @@ import materials from "@/info/materials.json";
       <select @change="store.sortByPrice">
         <option value="asc">Цена по возрастанию</option>
         <option value="desc">Цена по убыванию</option>
-        <option value="">Без сортировки</option>
       </select>
       <select @change="store.filterByMaterial">
         <option
@@ -22,7 +21,7 @@ import materials from "@/info/materials.json";
         >
           {{ material.name }}
         </option>
-        <option value="">Без фильтра</option>
+        <option :value="null">Все</option>
       </select>
     </div>
   </menu>

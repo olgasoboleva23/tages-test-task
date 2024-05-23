@@ -1,53 +1,44 @@
-// import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useProductStore = defineStore('products', {
   state: () => {
     return {
       products: [],
-      showedProducts: []
+      sortingByPrice: null,
+      filteringByMaterial: null
     }
   },
-  actions: {
-    sortByPrice(e) {
-      const value = e.target.value;
-      switch (value) {
+  getters: {
+    showedProducts() {
+      let result = this.products;
+
+      if (this.filteringByMaterial) {
+        result = result.filter((el) => el.material == value);
+      }
+
+      switch (this.sortingByPrice) {
         case "asc":
-          this.showedProducts.sort(
+          result.sort(
             (a, b) => a.price.current_price - b.price.current_price
           );
           break;
 
-        default:
-          this.showedProducts.sort(
+        case 'desc':
+          result.sort(
             (a, b) => b.price.current_price - a.price.current_price
           );
           break;
       }
+
+      return result;
+    }
+  },
+  actions: {
+    sortByPrice(e) {
+      this.sortingByPrice = e.target.value;
     },
     filterByMaterial(e) {
-      const value = e.target.value;
-      this.showedProducts = this.products.filter((el) => el.material == value);
+      this.filteringByMaterial = e.target.value;
     }
   }
-  // const filterByMaterial = ref('')
-  // const sortByPrice = ref('')
-  // const showedProducts = computed(() => {
-  //   if (sortByPrice) {
-  //     switch (value) {
-  //       case "asc":
-  //         this.showedProducts.sort(
-  //           (a, b) => a.price.current_price - b.price.current_price
-  //         );
-  //         break;
-  //
-  //       default:
-  //         this.showedProducts.sort(
-  //           (a, b) => b.price.current_price - a.price.current_price
-  //         );
-  //         break;
-  //     }
-  //   }
-  //   return
-  // })
 })
