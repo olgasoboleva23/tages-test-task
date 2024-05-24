@@ -4,16 +4,19 @@ export const useProductStore = defineStore('products', {
   state: () => {
     return {
       products: [],
-      sortingByPrice: null,
-      filteringByMaterial: null
+      sortingByPrice: 'asc',
+      filteringByMaterial: 'all',
+      materials: [],
+      // favorites: [],
+      // cart: []
     }
   },
   getters: {
     showedProducts() {
       let result = this.products;
 
-      if (this.filteringByMaterial) {
-        result = result.filter((el) => el.material == value);
+      if (this.materials.includes(this.filteringByMaterial)) {
+        result = result.filter((el) => el.material == this.filteringByMaterial);
       }
 
       switch (this.sortingByPrice) {
@@ -39,6 +42,20 @@ export const useProductStore = defineStore('products', {
     },
     filterByMaterial(e) {
       this.filteringByMaterial = e.target.value;
-    }
+    },
+    // changeInCart(itemId, inCart) {
+    //   if (inCart) {
+    //     this.cart.filter((id) => id !== itemId);
+    //   } else {
+    //     this.cart.push(itemId);
+    //   }
+    // },
+    // changeFavorites(itemId, inFavorites) {
+    //   if (inFavorites) {
+    //     this.favorites.filter((id) => id !== itemId);
+    //   } else {
+    //     this.favorites.push(itemId);
+    //   }
+    // },
   }
 })

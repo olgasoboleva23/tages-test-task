@@ -9,4 +9,4 @@ services:
       - ./test-task:/home/app
       - /home/app/node_modules
     ports:
-      - 3000:5173
+      - 3000:3000
