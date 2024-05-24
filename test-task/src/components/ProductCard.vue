@@ -15,10 +15,7 @@ const props = defineProps({
 
 defineEmits(['changeFavorites', 'changeInCart']);
 
-function getImageUrl(path) {
-  const url = new URL(`../assets`, import.meta.url).href;
-  return `${url}${path}`;
-}
+const imageUrl = new URL(`../assets/pic/${props.item.image.url}`, import.meta.url).href;
 
 const inCart = computed(() => {
   return props.cart.includes(props.item.id);
@@ -32,7 +29,7 @@ const inFavorites = computed(() => {
 <template>
   <div class="product-wrapper">
     <div v-if="item?.price?.old_price" class="sale">Скидка</div>
-    <img class="product-photo" :src="getImageUrl(item.image.url)" alt="Изображение товара" />
+    <img class="product-photo" :src="imageUrl" alt="Изображение товара" />
     <div class="code">{{ item?.code }}</div>
     <div class="product-name">{{ item?.name }}</div>
     <div class="product-bottom-line">
